@@ -9,6 +9,6 @@
     "outDir": "dist",
     "sourceMap": true
   },
-  "include": ["server/**/*.ts"],
+  "include": ["server/**/*.ts" , "*.ts"],
   "exclude": ["node_modules"]
 }
