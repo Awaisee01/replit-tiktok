@@ -1,3 +1,5 @@
+
+
 // import express, { type Request, Response, NextFunction } from "express";
 // import { registerRoutes } from "./routes.js";
 
@@ -9,7 +11,7 @@
 // app.use((req, res, next) => {
 //   const start = Date.now();
 //   const path = req.path;
-  
+
 //   res.on("finish", () => {
 //     const duration = Date.now() - start;
 //     if (path.startsWith("/api")) {
@@ -32,12 +34,9 @@
 //     console.error(err);
 //   });
 
-//   // Static file serving for production
-//   app.use(express.static("public"));
-  
-//   // Simple catch-all route for SPA
-//   app.get("*", (req, res) => {
-//     res.sendFile("index.html", { root: "public" });
+//   // API response to indicate that the server is running
+//   app.get("/", (_req: Request, res: Response) => {
+//     res.json({ message: "API is running" });
 //   });
 
 //   // Default to port 5000 or use environment variable
@@ -50,10 +49,21 @@
 //   });
 // })();
 
+
 import express, { type Request, Response, NextFunction } from "express";
+import cors from "cors";
 import { registerRoutes } from "./routes.js";
 
 const app = express();
+
+// ✅ Allow CORS from specific domains
+app.use(cors({
+  origin: [
+    "https://downloadtiktokvideosinhd.com",
+    "https://www.downloadtiktokvideosinhd.com"
+  ]
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -84,16 +94,14 @@ app.use((req, res, next) => {
     console.error(err);
   });
 
-  // API response to indicate that the server is running
   app.get("/", (_req: Request, res: Response) => {
     res.json({ message: "API is running" });
   });
 
-  // Default to port 5000 or use environment variable
   const port = process.env.PORT || 5000;
   server.listen({
     port,
-    host: "0.0.0.0", // Use 0.0.0.0 for production to listen on all network interfaces
+    host: "0.0.0.0"
   }, () => {
     console.log(`Server running on port ${port}`);
   });
